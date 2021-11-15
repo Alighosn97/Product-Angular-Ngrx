@@ -1,0 +1,46 @@
+<div class="container">
+  <ng-container *ngIf="productFormGroup">
+    <ng-container *ngIf="state as data">
+      <ng-container *ngIf="data.dataState==ProductsStateEnum.LOADING">
+        Loading...
+      </ng-container>
+      <ng-container *ngIf="data.dataState==ProductsStateEnum.LOADED">
+        <div class="alert-success container p-3 m-3">
+          <span>Product Save Successfully</span>
+          <button class="btn btn-success m-lg-3" (click)="newProduct()">New Product</button>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="data.dataState==ProductsStateEnum.NEW">
+        <form [formGroup]="productFormGroup" (ngSubmit)="onSaveProduct()">
+          <label class="form-label">Name:</label>
+          <input type="text" class="form-control" formControlName="name" id="name"
+                 [ngClass]="{'is-invalid':submitted&&productFormGroup.controls.name.errors }">
+          <div *ngIf="submitted && productFormGroup.controls.name.errors" class="invalid-feedback">
+            <div *ngIf="productFormGroup.controls.name.errors.required">Name is Required
+
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Price:</label>
+            <input type="text" class="form-control" formControlName="price" id="price">
+          </div>
+
+          <label class="form-label">Quantity:</label>
+          <input type="text" class="form-control" formControlName="quantity" id="quantity">
+          <label class="form-label">Selected</label>
+          <div><input type="checkbox" formControlName="selected" id="selected"></div>
+
+
+          <label class="form-label">Available</label>
+          <div><input type="checkbox" formControlName="available">
+          </div>
+          <button type="submit" class="btn btn-success">save</button>
+        </form>
+
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>
+
+
+
